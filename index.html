@@ -29,9 +29,10 @@
         ThousandDelimiterJS.prototype = {
             constructor: ThousandDelimiterJS,
             doMagic: function (e) {
+                debugger
                 var that = this;
-                var val = ""; //get val from element here
-                val = that.washinput(val);
+                var val = $(e.target).val(); //get val from element here
+                val = that.washInput(val);
                 val = delimitinput(val);
                 return val;
             },
@@ -66,16 +67,15 @@
             }
 
         };
-        $.fn.thousanddelimiterJS = function (option)
-        {
+        $.fn.thousanddelimiterjs = function (option) {
             return this.each(function () {
                 var $this = $(this);
-                new ThousandDelimiterJS(this, null);
+                new ThousandDelimiterJS(this, null); //null options... add options in data-tag
             });
-        }
-        $.fn.thousanddelimiterJS.constructor = ThousandDelimiterJS;
+        };
+        $.fn.thousanddelimiterjs.constructor = ThousandDelimiterJS;
         
-
+        $('.textbox').thousanddelimiterjs(); //binds class to functionality
 
         //USE THIS LATER?
         //var delimitInput = function (val) {

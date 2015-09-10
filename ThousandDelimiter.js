@@ -30,7 +30,7 @@
     };
     ThousandDelimiterJS.prototype = {
         constructor: ThousandDelimiterJS,
-        doMagic: function (e) {
+        doMagic: function (e) { //ze magic. TODO: Change this naming
             var that = this;
             var ValueObject = {
                 Value: this.element.val(),
@@ -53,6 +53,9 @@
             ValueObject.Value = that.removeLetters(ValueObject.Value);
             ValueObject.Value = that.clearThousandDelimiter(ValueObject.Value);
             return ValueObject;
+        },
+        clean: function () { //Use this for cleaning values before posting to a model. TODO: need better naming and needs to be developed (remove spaces, etc)
+            
         },
         removeSpaces: function (val) {
             return val = val.replace(/\s+/g, '');

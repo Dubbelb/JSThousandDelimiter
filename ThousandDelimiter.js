@@ -5,13 +5,13 @@
             this.thousandDelimiter = this.element.data('thousand-delimiter');
         }
         else {
-            this.thousandDelimiter = ",";
+            this.thousandDelimiter = ","; //default delimiter if nothing assigned on element
         }
         if (this.element.data('decimal-delimiter')) {
             this.decimalDelimiter = this.element.data('decimal-delimiter');
         }
         else {
-            this.decimalDelimiter = ",";
+            this.decimalDelimiter = ","; //default delimiter if nothing assigned on element
         }
         this.saveCurrencySymbol = false; //if this setting is true, currency symbol will be saved (not finished)
         this.debuggerMode = true; //if debuggerMode is true, it will eventual log errors in console
@@ -32,10 +32,7 @@
         constructor: ThousandDelimiterJS,
         doMagic: function (e) { //ze magic. TODO: Change this naming
             var that = this;
-            var ValueObject = {
-                Value: this.element.val(),
-                CurrencySymbol: ""
-            };
+            var ValueObject = that.createValueObject();
             ValueObject = that.washInput(ValueObject);
             if (that.validateWashedString(ValueObject.Value)) {
                 ValueObject.Value = that.delimitInput(ValueObject.Value);
@@ -43,6 +40,20 @@
                     that.setOutputToElement(ValueObject);
                 }
             }
+        },
+        createValueObject: function(){
+            var ValueObject = {
+                Value: "",
+                CurrencySymbol: ""
+            };
+
+            if (this.isInput) {
+                ValueObject.Value = this.element.val();
+            }
+            else {
+                ValueObject.Value = this.element.text();
+            }
+            return ValueObject;
         },
         washInput: function (ValueObject) {
             var that = this;
@@ -114,13 +125,21 @@
             return true;
         },
         setOutputToElement: function (ValueObject) {
+            var valToSet = ValueObject.Value;
             if (ValueObject.CurrencySymbol != "") {
-                //not finished. Symbol can be infront of value ($ for example)
-                this.element.val(ValueObject.Value + " " + ValueObject.CurrencySymbol);
+                valToSet = getValWithCurrencySymbol;
+            }
+            if (this.isInput) {
+                this.element.val(valToSet);
             }
             else {
-                this.element.val(ValueObject.Value);
+                this.element.html(valToSet);
             }
+        },
+        getValWithCurrencySymbol: function (ValueObject) {
+            //not finished. Symbol can be infront of value ($ for example) TODO
+            var val = ValueObject.Value + " " + ValueObject.CurrencySymbol;
+            return val;
         },
         delimitInput: function (val) {
             val += '';

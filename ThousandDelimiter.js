@@ -93,8 +93,11 @@
             return val;
         },
         saveCurrencySymbolFromString: function (ValueObject) {
+            debugger
+            var that = this;
             $.each(TDGlobal.currencySymbols, function (index, Symbol) {
-                if (this.characterExistsInString(Symbol, ValueObject.Value)) {
+                if (that.characterExistsInString(Symbol, ValueObject.Value)) {
+                    debugger
                     ValueObject.CurrencySymbol = Symbol;
                 }
             });
@@ -163,7 +166,7 @@
     $.fn.thousanddelimiterjs.constructor = ThousandDelimiterJS;
 
     var TDGlobal = {
-        currencySymbols: ["$", "£", "€"],
+        currencySymbols: ["$", "£", "€"], //this is buggy. £€ shows as question marks TODO
         delimiterMode: [ //implement the delimiterMode somehow?
             {
                 thousandDelimiter: ',',

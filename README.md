@@ -1,5 +1,8 @@
 # ThousandDelimiterJS
-Delimiter for numbers in JavaScript.
+Delimiter for numbers in JavaScript / jQuery.
+Easily configurable to fit specific localizational needs.
+
+Demo on https://jsfiddle.net/dubbelb/867wm0dt/1/
 
 Instructions:
 Add a reference to the js-file.

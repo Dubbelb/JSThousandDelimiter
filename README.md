@@ -7,7 +7,7 @@ Demo on https://jsfiddle.net/dubbelb/867wm0dt/1/
 
 ## Instructions:
 Add a reference to the js-file.
-Call the plugin via javascript:
+Call the plugin via javascript or jQuery:
 $(selector).thousanddelimiterjs();
 
 Each element can have their own thousand and decimal delimiter through a data-tag.

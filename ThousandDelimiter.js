@@ -41,7 +41,7 @@
                 }
             }
         },
-        createValueObject: function(){
+        createValueObject: function () {
             var ValueObject = {
                 Value: "",
                 CurrencySymbol: ""
@@ -61,15 +61,22 @@
             if (that.saveCurrencySymbol) {
                 ValueObject = that.saveCurrencySymbolFromString(ValueObject);
             }
+            ValueObject.Value = that.removeStartingZeros(ValueObject.Value);
             ValueObject.Value = that.removeLetters(ValueObject.Value);
             ValueObject.Value = that.clearThousandDelimiter(ValueObject.Value);
             return ValueObject;
         },
         clean: function () { //Use this for cleaning values before posting to a model. TODO: need better naming and needs to be developed (remove spaces, etc)
-            
+
         },
         removeSpaces: function (val) {
             return val = val.replace(/\s+/g, '');
+        },
+        removeStartingZeros: function (val) {
+            while (val.indexOf("0") == 0) {
+                val = val.substring(1);
+            }
+            return val;
         },
         removeLetters: function (val) {
             return val = val.replace(/[^\d.,-]/g, '');
@@ -118,7 +125,7 @@
             }
 
             if (this.debuggerMode)
-                console.log("Error: Washed string is not either float or int || " + val)
+                console.log("Error: Washed string is not either float or int || " + val);
 
             return false;
         },
@@ -160,7 +167,7 @@
     $.fn.thousanddelimiterjs = function (option) {
         return this.each(function () {
             var $this = $(this);
-            new ThousandDelimiterJS(this, null); //null options... add options in data-tag?
+            new ThousandDelimiterJS(this, null); //null options...
         });
     };
     $.fn.thousanddelimiterjs.constructor = ThousandDelimiterJS;
